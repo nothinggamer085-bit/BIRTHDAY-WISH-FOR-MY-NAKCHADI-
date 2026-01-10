@@ -15,7 +15,7 @@ html,body{
   overflow-x:hidden;
 }
 
-/* 🌈 SMOOTH ROMANTIC BACKGROUND */
+/* 🌈 BACKGROUND */
 body{
   background:linear-gradient(-45deg,#ffd1e8,#d6e4ff,#e6d7ff,#ffe8cc);
   background-size:400% 400%;
@@ -33,36 +33,52 @@ body{
   inset:0;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;
   align-items:center;
   text-align:center;
+  padding-top:40px;
 }
 #lock h1{
   color:#ff4d88;
   text-shadow:0 0 15px #ff8fc7;
   font-size:2.6em;
-  margin-bottom:10px;
+  margin-bottom:20px;
 }
 
 /* 🎂 CAKE */
 #cake{
   position:relative;
-  width:180px;
-  height:130px;
+  width:200px;
+  height:140px;
   background:#ffb3c6;
   border-radius:0 0 25px 25px;
   box-shadow:0 0 20px #ff8fab;
-  margin-top:-10px;
+  margin-top:10px;
 }
 #cake:before{
   content:"";
   position:absolute;
   top:-30px;
   left:0;
-  width:180px;
+  width:200px;
   height:30px;
   background:#ffd6e8;
   border-radius:25px 25px 0 0;
+}
+
+/* 🎂 TEXT ON CAKE */
+#cakeText{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:100%;
+  text-align:center;
+  font-size:1.1em;
+  color:#d6336c;
+  font-weight:bold;
+  text-shadow:0 0 6px #fff;
+  pointer-events:none;
 }
 
 /* 🕯 CANDLES */
@@ -73,11 +89,12 @@ body{
   height:40px;
   background:#fff;
   border-radius:5px;
+  cursor:pointer;
 }
-.candle:nth-child(1){ left:35px; }
-.candle:nth-child(2){ left:75px; }
-.candle:nth-child(3){ left:115px; }
-.candle:nth-child(4){ left:155px; }
+.candle:nth-child(1){ left:40px; }
+.candle:nth-child(2){ left:80px; }
+.candle:nth-child(3){ left:120px; }
+.candle:nth-child(4){ left:160px; }
 
 .flame{
   position:absolute;
@@ -101,7 +118,7 @@ body{
   color:#555;
 }
 
-/* 🔑 PASSWORD SCREEN */
+/* 🔑 PASSWORD */
 #passwordScreen{
   display:none;
   position:fixed;
@@ -142,7 +159,41 @@ body{
   box-shadow:0 0 15px #ff8fc7;
 }
 
-/* 🎂 CUT CAKE SCREEN */
+/* 👉 SWIPE SCREEN */
+#swipeScreen{
+  display:none;
+  position:fixed;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:30px;
+  transition:opacity 0.6s ease;
+}
+#swipeScreen h2{
+  color:#ff4d88;
+  text-shadow:0 0 10px #ff8fc7;
+  font-size:2em;
+}
+#swipeText{
+  margin-top:15px;
+  font-size:1.1em;
+  color:#444;
+  line-height:1.6;
+}
+#swipeHint{
+  margin-top:25px;
+  font-size:1.1em;
+  color:#666;
+  animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:0.4;}
+  50%{opacity:1;}
+}
+
+/* 🎂 CUT CAKE */
 #cutScreen{
   display:none;
   position:fixed;
@@ -151,6 +202,8 @@ body{
   align-items:center;
   flex-direction:column;
   text-align:center;
+  opacity:0;
+  transition:opacity 1s ease;
 }
 #knife{
   margin-top:20px;
@@ -177,7 +230,12 @@ body{
 }
 
 /* 💚 MAIN NOTE */
-#main{ display:none; }
+#main{
+  display:none;
+  position:fixed;
+  inset:0;
+  overflow-y:auto;
+}
 #title{
   text-align:center;
   margin-top:60px;
@@ -187,7 +245,7 @@ body{
 }
 #note{
   max-width:900px;
-  margin:40px auto 80px;
+  margin:40px auto 60px;
   padding:25px;
   text-align:center;
   font-size:1.5em;
@@ -195,6 +253,37 @@ body{
   color:#b7ffe2;
   text-shadow:0 0 6px #00ffb3, 0 0 14px #00ffaa;
   white-space:pre-wrap;
+}
+#finalSwipeHint{
+  text-align:center;
+  margin-bottom:40px;
+  color:#666;
+  animation:pulse 1.2s infinite;
+}
+
+/* 💖 FINAL */
+#finalScreen{
+  display:none;
+  position:fixed;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:30px;
+  opacity:0;
+  transition:opacity 1.2s ease;
+}
+#finalScreen h1{
+  color:#ff4d88;
+  text-shadow:0 0 15px #ff8fc7;
+  font-size:2.5em;
+  margin-bottom:20px;
+}
+#finalText{
+  font-size:1.3em;
+  color:#444;
+  line-height:1.8;
 }
 
 /* 💖 HEARTS */
@@ -243,92 +332,85 @@ body{
 
 <body>
 
-<!-- 🎂 LOCK WITH CAKE -->
+<!-- 🎂 LOCK -->
 <div id="lock">
   <h1>Happy Birthday My Love 🎂</h1>
   <div id="cake">
+    <div id="cakeText">Happy Birthday Meri Bacha 💖</div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
   </div>
-  <div id="blowText">Blow with your mic 🎤 or tap the candle 👆</div>
+  <div id="blowText">Tap each candle to blow them out 💨 (4 taps)</div>
 </div>
 
 <!-- 🔑 PASSWORD -->
 <div id="passwordScreen">
   <h2>Every love has a special key 💖</h2>
-  <div class="hint">My first name I have given you… <b>Shehzadi</b> 💕</div>
+  <div class="hint">First name I have given to you… <b>Shehzadi</b> 💕</div>
   <input id="pass" type="password" placeholder="Enter the key">
   <button onclick="unlock()">Unlock 💌</button>
 </div>
 
-<!-- 🎂 CUT CAKE -->
+<!-- 👉 SWIPE -->
+<div id="swipeScreen">
+  <h2>Wait… 💞</h2>
+  <div id="swipeText">
+    This is not all… but this is all I have to tell you.<br>
+    Swipe to read my love ❤️
+  </div>
+  <div id="swipeHint">⇆ Swipe left or right</div>
+</div>
+
+<!-- 🎂 CUT -->
 <div id="cutScreen">
   <h2 style="color:#ff4d88;">Cut the cake for us 🎂</h2>
   <div id="knife"></div>
   <div id="cutText">Tap the knife to cut 💞</div>
 </div>
 
-<!-- 💚 MAIN CONTENT -->
+<!-- 💚 MAIN NOTE -->
 <div id="main">
   <div id="title">Happy Birthday My Love 💚</div>
   <div id="note"></div>
+  <div id="finalSwipeHint">⇆ Swipe to see my final words</div>
+</div>
+
+<!-- 💖 FINAL -->
+<div id="finalScreen">
+  <h1>I Love You Always ♾️</h1>
+  <div id="finalText">
+    I love you infinity 💞<br>
+    I love you more than you think ❤️<br>
+    We will and we are forever together, Inshallah 🤍
+  </div>
 </div>
 
 <script>
-let blown = false;
+let blownCount = 0;
 
-/* 🎤 MICROPHONE */
-async function startMic(){
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const mic = audioCtx.createMediaStreamSource(stream);
-    const analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    mic.connect(analyser);
-
-    const data = new Uint8Array(analyser.frequencyBinCount);
-    function detectBlow(){
-      if(blown) return;
-      analyser.getByteFrequencyData(data);
-      let sum = 0;
-      for(let i=0;i<data.length;i++) sum += data[i];
-      let volume = sum / data.length;
-      if(volume > 60){
-        blowOut();
-        blown = true;
+/* 👆 CANDLES */
+document.querySelectorAll(".candle").forEach(candle=>{
+  candle.addEventListener("click", ()=>{
+    const flame = candle.querySelector(".flame");
+    if(flame && flame.style.display !== "none"){
+      flame.style.display = "none";
+      blownCount++;
+      sparkleEffect();
+      if(blownCount === 4){
+        setTimeout(()=>{
+          document.getElementById("lock").style.display="none";
+          document.getElementById("passwordScreen").style.display="flex";
+        },800);
       }
-      requestAnimationFrame(detectBlow);
     }
-    detectBlow();
-  }catch(e){
-    document.getElementById("blowText").innerText = "Mic blocked. You can tap the candle 👆";
-  }
-}
-
-/* 👆 TAP CANDLE */
-document.getElementById("cake").addEventListener("click", ()=>{
-  if(!blown){
-    blowOut();
-    blown = true;
-  }
+  });
 });
-
-/* 🕯 BLOW OUT */
-function blowOut(){
-  document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
-  sparkleEffect();
-  setTimeout(()=>{
-    document.getElementById("lock").style.display="none";
-    document.getElementById("passwordScreen").style.display="flex";
-  },800);
-}
 
 /* ✨ SPARKLES */
 function sparkleEffect(){
-  for(let i=0;i<30;i++){
+  for(let i=0;i<15;i++){
     const s=document.createElement("div");
     s.className="sparkle";
     s.style.left=(window.innerWidth/2 + Math.random()*120 - 60)+"px";
@@ -339,16 +421,44 @@ function sparkleEffect(){
 }
 
 /* 🔑 PASSWORD */
-const realPassword = "shehzadi"; // you can change if you want
-
+const realPassword = "nakchadi";
 function unlock(){
   const input=document.getElementById("pass").value;
   if(input.toLowerCase()===realPassword){
     document.getElementById("passwordScreen").style.display="none";
-    document.getElementById("cutScreen").style.display="flex";
+    const swipe = document.getElementById("swipeScreen");
+    swipe.style.display="flex";
+    swipe.style.opacity=0;
+    setTimeout(()=>{ swipe.style.opacity=1; },50);
   }else{
     alert("Wrong key 💔 Try again");
   }
+}
+
+/* 👉 SWIPE TO CUT */
+let startX = 0;
+let swiped = false;
+const swipeScreen = document.getElementById("swipeScreen");
+
+swipeScreen.addEventListener("touchstart", e=>{
+  startX = e.touches[0].clientX;
+});
+swipeScreen.addEventListener("touchend", e=>{
+  let endX = e.changedTouches[0].clientX;
+  if(Math.abs(endX - startX) > 80 && !swiped){
+    swiped = true;
+    showCut();
+  }
+});
+
+function showCut(){
+  swipeScreen.style.opacity = 0;
+  setTimeout(()=>{
+    swipeScreen.style.display="none";
+    const cut = document.getElementById("cutScreen");
+    cut.style.display="flex";
+    setTimeout(()=>{ cut.style.opacity = 1; },50);
+  },500);
 }
 
 /* 🎂 CUT CAKE */
@@ -389,6 +499,27 @@ function typeNote(){
   }
 }
 
+/* 👉 FINAL SWIPE */
+let noteStartX = 0;
+const main = document.getElementById("main");
+
+main.addEventListener("touchstart", e=>{
+  noteStartX = e.touches[0].clientX;
+});
+main.addEventListener("touchend", e=>{
+  let endX = e.changedTouches[0].clientX;
+  if(Math.abs(endX - noteStartX) > 80){
+    showFinal();
+  }
+});
+
+function showFinal(){
+  document.getElementById("main").style.display="none";
+  const final = document.getElementById("finalScreen");
+  final.style.display="flex";
+  setTimeout(()=>{ final.style.opacity=1; },50);
+}
+
 /* 🎆 FIREWORKS */
 function fireworks(){
   for(let i=0;i<40;i++){
@@ -413,9 +544,6 @@ document.body.addEventListener("click",(e)=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),3000);
 });
-
-/* START MIC */
-startMic();
 </script>
 
 </body>
