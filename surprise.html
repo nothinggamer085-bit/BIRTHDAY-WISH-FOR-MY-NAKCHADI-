@@ -15,11 +15,11 @@ html,body{
   overflow-x:hidden;
 }
 
-/* 🌈 SOFT ROMANTIC BACKGROUND */
+/* 🌈 BACKGROUND */
 body{
-  background:linear-gradient(-45deg,#ffd1e8,#d6e4ff,#e6d7ff,#ffe8cc);
+  background:linear-gradient(-45deg,#ffd1e8,#e6dcff,#d6eaff,#ffe8cc);
   background-size:400% 400%;
-  animation:bg 18s ease infinite;
+  animation:bg 20s ease infinite;
 }
 @keyframes bg{
   0%{background-position:0% 50%}
@@ -27,90 +27,89 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* 🔒 LOCK SCREEN */
+/* 🔒 LOCK */
 #lock{
   position:fixed;
   inset:0;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
   align-items:center;
   text-align:center;
-  padding-top:40px;
+  padding-top:20px;
 }
 #lock h1{
   color:#ff4d88;
-  text-shadow:0 0 15px #ff8fc7;
-  font-size:2.6em;
-  margin-bottom:5px;
+  text-shadow:0 0 12px #ff9acb;
+  font-size:2.7em;
+  margin:0 0 10px;
 }
 
 /* 🎂 CAKE */
 #cake{
   position:relative;
-  width:220px;
-  height:150px;
+  width:240px;
+  height:160px;
   background:#ffb3c6;
-  border-radius:0 0 30px 30px;
+  border-radius:0 0 35px 35px;
   box-shadow:0 0 25px #ff8fab;
-  margin-top:40px;
+  margin-top:50px;
 }
 #cake:before{
   content:"";
   position:absolute;
-  top:-30px;
+  top:-35px;
   left:0;
-  width:220px;
-  height:30px;
+  width:240px;
+  height:35px;
   background:#ffd6e8;
-  border-radius:30px 30px 0 0;
+  border-radius:35px 35px 0 0;
 }
 
 /* 🎂 TEXT ON CAKE */
 #cakeText{
   position:absolute;
-  top:55%;
+  top:58%;
   left:50%;
   transform:translate(-50%,-50%);
   width:100%;
   text-align:center;
-  font-size:1.05em;
-  color:#d6336c;
+  font-size:1.1em;
+  color:#c9184a;
   font-weight:bold;
   text-shadow:0 0 6px #fff;
-  padding:0 10px;
+  padding:0 12px;
   pointer-events:none;
 }
 
 /* 🕯 CANDLES */
 .candle{
   position:absolute;
-  top:-70px;
-  width:10px;
-  height:40px;
+  top:-75px;
+  width:12px;
+  height:45px;
   background:#fff;
-  border-radius:5px;
+  border-radius:6px;
   cursor:pointer;
 }
-.candle:nth-child(1){ left:40px; }
-.candle:nth-child(2){ left:80px; }
-.candle:nth-child(3){ left:120px; }
-.candle:nth-child(4){ left:160px; }
+.candle:nth-child(1){ left:50px; }
+.candle:nth-child(2){ left:90px; }
+.candle:nth-child(3){ left:130px; }
+.candle:nth-child(4){ left:170px; }
 
 .flame{
   position:absolute;
-  top:-20px;
+  top:-22px;
   left:50%;
   transform:translateX(-50%);
-  width:14px;
-  height:20px;
+  width:16px;
+  height:22px;
   background:radial-gradient(circle at 50% 20%, #fff, #ffcc00, #ff6600);
   border-radius:50%;
   animation:flicker 0.4s infinite alternate;
 }
 @keyframes flicker{
   from{transform:translateX(-50%) scale(1);}
-  to{transform:translateX(-50%) scale(1.1);}
+  to{transform:translateX(-50%) scale(1.15);}
 }
 
 #blowText{
@@ -150,7 +149,7 @@ body{
 }
 #passwordScreen button{
   margin-top:15px;
-  padding:10px 20px;
+  padding:10px 22px;
   border:none;
   border-radius:25px;
   background:#ff5fa2;
@@ -160,7 +159,7 @@ body{
   box-shadow:0 0 15px #ff8fc7;
 }
 
-/* 🎂 CUT CAKE */
+/* 🔪 CUT SCREEN */
 #cutScreen{
   display:none;
   position:fixed;
@@ -169,17 +168,16 @@ body{
   align-items:center;
   flex-direction:column;
   text-align:center;
-  opacity:0;
-  transition:opacity 1s ease;
 }
 #knife{
   margin-top:20px;
-  width:120px;
+  width:140px;
   height:6px;
   background:#ccc;
   border-radius:5px;
   position:relative;
   cursor:pointer;
+  transition:transform 1s ease;
 }
 #knife:after{
   content:"";
@@ -191,12 +189,16 @@ body{
   background:#999;
   border-radius:3px;
 }
-#cutText{
-  margin-top:10px;
-  color:#555;
+#cutLine{
+  width:0;
+  height:4px;
+  background:#ff4d88;
+  box-shadow:0 0 12px #ff9acb;
+  margin-top:15px;
+  transition:width 1s ease;
 }
 
-/* 💚 MAIN NOTE */
+/* 💚 NOTE */
 #main{
   display:none;
   position:fixed;
@@ -205,20 +207,20 @@ body{
 }
 #title{
   text-align:center;
-  margin-top:60px;
-  font-size:3em;
-  color:#7CFFB2;
-  text-shadow:0 0 10px #2cff9a, 0 0 25px #00ffb3;
+  margin-top:50px;
+  font-size:2.8em;
+  color:#6fffd6;
+  text-shadow:0 0 4px #a6fff0;
 }
 #note{
   max-width:900px;
-  margin:40px auto 60px;
+  margin:35px auto 60px;
   padding:25px;
   text-align:center;
-  font-size:1.5em;
+  font-size:1.45em;
   line-height:1.8;
-  color:#b7ffe2;
-  text-shadow:0 0 6px #00ffb3, 0 0 14px #00ffaa;
+  color:#bfffee;
+  text-shadow:0 0 2px #e6fff9;
   white-space:pre-wrap;
 }
 #finalHint{
@@ -324,14 +326,14 @@ body{
   <button onclick="unlock()">Unlock 💌</button>
 </div>
 
-<!-- 🎂 CUT -->
+<!-- 🔪 CUT -->
 <div id="cutScreen">
   <h2 style="color:#ff4d88;">Cut the cake for us 🎂</h2>
   <div id="knife"></div>
-  <div id="cutText">Tap the knife to cut 💞</div>
+  <div id="cutLine"></div>
 </div>
 
-<!-- 💚 MAIN NOTE -->
+<!-- 💚 NOTE -->
 <div id="main">
   <div id="title">Happy Birthday My Love 💚</div>
   <div id="note"></div>
@@ -393,11 +395,20 @@ function unlock(){
   }
 }
 
-/* 🎂 CUT CAKE */
+/* 🔪 KNIFE CUT ANIMATION */
 document.getElementById("knife").addEventListener("click", ()=>{
+  const knife = document.getElementById("knife");
+  const line = document.getElementById("cutLine");
+
+  knife.style.transform = "translateX(120px)";
+  line.style.width = "200px";
+
   sparkleEffect();
   fireworks();
-  goNext();
+
+  setTimeout(()=>{
+    goNext();
+  },1200);
 });
 
 /* ✍️ TYPING NOTE */
@@ -429,13 +440,11 @@ function typeNote(){
   }
 }
 
-/* 🔁 UNIVERSAL NEXT */
+/* 🔁 FLOW */
 function goNext(){
   if(step === 0){
     document.getElementById("passwordScreen").style.display="none";
-    const cut = document.getElementById("cutScreen");
-    cut.style.display="flex";
-    setTimeout(()=>{ cut.style.opacity = 1; },50);
+    document.getElementById("cutScreen").style.display="flex";
     step++;
   }
   else if(step === 1){
@@ -460,14 +469,10 @@ document.body.addEventListener("touchstart", (e)=>{
   }
 });
 
-/* 🖥️ PC: DOUBLE CLICK OR SPACE */
-document.body.addEventListener("dblclick", ()=>{
-  goNext();
-});
+/* 🖥️ PC */
+document.body.addEventListener("dblclick", ()=>{ goNext(); });
 document.addEventListener("keydown", (e)=>{
-  if(e.code === "Space"){
-    goNext();
-  }
+  if(e.code === "Space"){ goNext(); }
 });
 
 /* 🎆 FIREWORKS */
