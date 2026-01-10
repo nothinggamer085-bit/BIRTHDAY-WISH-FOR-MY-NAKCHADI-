@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Happy Birthday ❤️</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      font-family: Arial;
+      text-align: center;
+      color: white;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 50px;
+      animation: fade 2s ease-in-out;
+    }
+
+    p {
+      font-size: 22px;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 30px;
+      animation: float 5s infinite;
+    }
+
+    @keyframes float {
+      0% { bottom: 0; opacity: 1; }
+      100% { bottom: 100%; opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Birthday My Love 💖</h1>
+  <p>
+    You make my world brighter every day 🌸  
+    I’m so lucky to have you ❤️  Aaj tumhara birthday hai, aur honestly mere paas itne lafz hi nahi hain jo bata sakein ke tum meri zindagi mein kitni important ho. Tum sirf meri partner nahi ho, tum meri best friend ho, meri aadat ho, aur meri strength bhi ho.
+
+Humari relationship perfect kabhi nahi rahi, aur shayad isi wajah se yeh itni special hai. Hum hase bhi bohot hain, enjoy bhi bohot kiya hai—choti choti baaton pe hansna, late night baatein, bina wajah ke plans, aur woh moments jo sirf hum dono ko samajh aate hain. Tumhare saath har normal din bhi special lagta hai.
+
+Haan, hum lade bhi hain. Bohot lade hain. Kabhi ego aaya, kabhi gussa, kabhi misunderstanding. Kabhi lagta tha sab khatam ho jayega. Par har fight ke baad hum wapas aaye—thode aur strong ban ke, thode aur mature ho ke. Yeh cheez prove karti hai ke hum sirf saath nahi hain, hum ek doosre ko choose karte hain, baar baar.
+
+Tum mujhe annoy bhi karti ho, pareshaan bhi karti ho, par sach yeh hai ke tumhare bina sab adhoora lagta hai. Tumhari ek smile mera mood change kar deti hai, aur tumhari ek baat mujhe sambhal leti hai.
+
+Aaj tumhare birthday pe main bas itna kehna chahta hoon ke main tumhare saath future dekhna chahta hoon—aur fights ke saath, misunderstandings ke saath, lekin pyaar aur loyalty ke saath. Jaise hum ab tak nibhate aaye hain.
+
+May Allah tumhari zindagi ko khushiyon se bhar de, tumhe hamesha muskurata rakhe, aur mujhe itni himmat de ke main hamesha tumhara saath nibha sakoon.
+
+Once again, Happy Birthday Tanjeena ❤️
+Tum meri kahani ka sabse khoobsurat hissa ho.
+  </p>
+
+  <!-- Hearts -->
+  <script>
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.innerHTML = "❤️";
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }, 500);
+  </script>
+
+</body>
+</html>
