@@ -1,76 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Happy Birthday ❤️</title>
-  <style>
-    body {
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      font-family: Arial;
-      text-align: center;
-      color: white;
-      padding-top: 80px;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Birthday Surprise 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    h1 {
-      font-size: 50px;
-      animation: fade 2s ease-in-out;
-    }
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:'Segoe Script', cursive;
+  background:linear-gradient(120deg,#ffd1e8,#d6e4ff,#e6d7ff);
+  background-size:400% 400%;
+  animation:bg 12s ease infinite;
+}
 
-    p {
-      font-size: 22px;
-    }
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-    @keyframes fade {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
+#center{
+  position:absolute;
+  top:40%;
+  width:100%;
+  text-align:center;
+  transform:translateY(-50%);
+}
 
-    .heart {
-      position: absolute;
-      font-size: 30px;
-      animation: float 5s infinite;
-    }
+#title{
+  font-size:3em;
+  color:#ff2f92;
+  text-shadow:0 0 10px #ff7acb,0 0 25px #ffc1e3;
+  min-height:1.5em;
+}
 
-    @keyframes float {
-      0% { bottom: 0; opacity: 1; }
-      100% { bottom: 100%; opacity: 0; }
-    }
-  </style>
+#tap{
+  margin-top:15px;
+  font-size:1.1em;
+  color:#444;
+}
+
+#note{
+  display:none;
+  max-width:900px;
+  margin:60px auto;
+  padding:20px;
+  text-align:center;
+  font-size:1.8em;
+  line-height:1.6;
+  color:#2b004f;
+  text-shadow:0 0 10px #ff7acb,0 0 20px #ffb3de;
+  animation:fade 2s ease forwards;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.heart{
+  position:fixed;
+  font-size:22px;
+  animation:float 3s linear forwards;
+  pointer-events:none;
+}
+
+@keyframes float{
+  from{transform:translateY(0) scale(1);opacity:1;}
+  to{transform:translateY(-150px) scale(1.8);opacity:0;}
+}
+
+#playing{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff5fa2;
+  color:white;
+  padding:10px 16px;
+  border-radius:30px;
+  font-size:14px;
+  display:none;
+  box-shadow:0 0 15px #ff8fc2;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>Happy Birthday My Love 💖</h1>
-  <p>
-    You make my world brighter every day 🌸  
-    I’m so lucky to have you ❤️  Aaj tumhara birthday hai, aur honestly mere paas itne lafz hi nahi hain jo bata sakein ke tum meri zindagi mein kitni important ho. Tum sirf meri partner nahi ho, tum meri best friend ho, meri aadat ho, aur meri strength bhi ho.
+<div id="center">
+  <div id="title"></div>
+  <div id="tap">Touch anywhere on the screen 💖</div>
+</div>
 
-Humari relationship perfect kabhi nahi rahi, aur shayad isi wajah se yeh itni special hai. Hum hase bhi bohot hain, enjoy bhi bohot kiya hai—choti choti baaton pe hansna, late night baatein, bina wajah ke plans, aur woh moments jo sirf hum dono ko samajh aate hain. Tumhare saath har normal din bhi special lagta hai.
+<div id="note">
+WELCOME TO A DAY FILLED WITH LOVE, SMILES, AND BEAUTIFUL MEMORIES.  
+THE BEST DAY OF THE YEAR IS HERE — YOUR BIRTHDAY 😘  
+HAPPIEST BIRTHDAY TO MY LOVE MY EVERYTHING 💜.....
+</div>
 
-Haan, hum lade bhi hain. Bohot lade hain. Kabhi ego aaya, kabhi gussa, kabhi misunderstanding. Kabhi lagta tha sab khatam ho jayega. Par har fight ke baad hum wapas aaye—thode aur strong ban ke, thode aur mature ho ke. Yeh cheez prove karti hai ke hum sirf saath nahi hain, hum ek doosre ko choose karte hain, baar baar.
+<div id="playing">🎵 Playing...</div>
 
-Tum mujhe annoy bhi karti ho, pareshaan bhi karti ho, par sach yeh hai ke tumhare bina sab adhoora lagta hai. Tumhari ek smile mera mood change kar deti hai, aur tumhari ek baat mujhe sambhal leti hai.
+<audio id="song" preload="auto">
+  <source src="o-maahi.mp3.mp3" type="audio/mpeg">
+</audio>
 
-Aaj tumhare birthday pe main bas itna kehna chahta hoon ke main tumhare saath future dekhna chahta hoon—aur fights ke saath, misunderstandings ke saath, lekin pyaar aur loyalty ke saath. Jaise hum ab tak nibhate aaye hain.
+<script>
+const text="Happy Birthday My Love ❤️🎂✨";
+let i=0;
+const title=document.getElementById("title");
 
-May Allah tumhari zindagi ko khushiyon se bhar de, tumhe hamesha muskurata rakhe, aur mujhe itni himmat de ke main hamesha tumhara saath nibha sakoon.
+function type(){
+  if(i<text.length){
+    title.innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(type,100);
+  }
+}
+type();
 
-Once again, Happy Birthday Tanjeena ❤️
-Tum meri kahani ka sabse khoobsurat hissa ho.
-  </p>
+const colors=["❤️","💙","💜","💚","💛","🩵","🩷","🤍"];
+let started=false;
+const audio=document.getElementById("song");
 
-  <!-- Hearts -->
-  <script>
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.innerHTML = "❤️";
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
+document.body.addEventListener("click",()=>{
+  pop(event.clientX,event.clientY);
 
-      setTimeout(() => heart.remove(), 5000);
-    }, 500);
-  </script>
+  if(!started){
+    started=true;
+    document.getElementById("note").style.display="block";
+    document.getElementById("playing").style.display="block";
+
+    audio.currentTime=80;
+    audio.play().catch(()=>alert("Tap again to allow music 🎵"));
+  }
+});
+
+function pop(x,y){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML=colors[Math.floor(Math.random()*colors.length)];
+  h.style.left=x+"px";
+  h.style.top=y+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),3000);
+}
+</script>
 
 </body>
 </html>
