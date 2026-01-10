@@ -15,7 +15,7 @@ html,body{
   overflow-x:hidden;
 }
 
-/* 🌈 BACKGROUND */
+/* 🌈 SOFT ROMANTIC BACKGROUND */
 body{
   background:linear-gradient(-45deg,#ffd1e8,#d6e4ff,#e6d7ff,#ffe8cc);
   background-size:400% 400%;
@@ -42,42 +42,43 @@ body{
   color:#ff4d88;
   text-shadow:0 0 15px #ff8fc7;
   font-size:2.6em;
-  margin-bottom:20px;
+  margin-bottom:5px;
 }
 
 /* 🎂 CAKE */
 #cake{
   position:relative;
-  width:200px;
-  height:140px;
+  width:220px;
+  height:150px;
   background:#ffb3c6;
-  border-radius:0 0 25px 25px;
-  box-shadow:0 0 20px #ff8fab;
-  margin-top:10px;
+  border-radius:0 0 30px 30px;
+  box-shadow:0 0 25px #ff8fab;
+  margin-top:40px;
 }
 #cake:before{
   content:"";
   position:absolute;
   top:-30px;
   left:0;
-  width:200px;
+  width:220px;
   height:30px;
   background:#ffd6e8;
-  border-radius:25px 25px 0 0;
+  border-radius:30px 30px 0 0;
 }
 
 /* 🎂 TEXT ON CAKE */
 #cakeText{
   position:absolute;
-  top:50%;
+  top:55%;
   left:50%;
   transform:translate(-50%,-50%);
   width:100%;
   text-align:center;
-  font-size:1.1em;
+  font-size:1.05em;
   color:#d6336c;
   font-weight:bold;
   text-shadow:0 0 6px #fff;
+  padding:0 10px;
   pointer-events:none;
 }
 
@@ -114,7 +115,7 @@ body{
 
 #blowText{
   margin-top:15px;
-  font-size:1.2em;
+  font-size:1.1em;
   color:#555;
 }
 
@@ -157,40 +158,6 @@ body{
   font-size:1em;
   cursor:pointer;
   box-shadow:0 0 15px #ff8fc7;
-}
-
-/* 👉 SWIPE SCREEN */
-#swipeScreen{
-  display:none;
-  position:fixed;
-  inset:0;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  text-align:center;
-  padding:30px;
-  transition:opacity 0.6s ease;
-}
-#swipeScreen h2{
-  color:#ff4d88;
-  text-shadow:0 0 10px #ff8fc7;
-  font-size:2em;
-}
-#swipeText{
-  margin-top:15px;
-  font-size:1.1em;
-  color:#444;
-  line-height:1.6;
-}
-#swipeHint{
-  margin-top:25px;
-  font-size:1.1em;
-  color:#666;
-  animation:pulse 1.2s infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:0.4;}
-  50%{opacity:1;}
 }
 
 /* 🎂 CUT CAKE */
@@ -254,11 +221,15 @@ body{
   text-shadow:0 0 6px #00ffb3, 0 0 14px #00ffaa;
   white-space:pre-wrap;
 }
-#finalSwipeHint{
+#finalHint{
   text-align:center;
   margin-bottom:40px;
   color:#666;
   animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:0.4;}
+  50%{opacity:1;}
 }
 
 /* 💖 FINAL */
@@ -336,13 +307,13 @@ body{
 <div id="lock">
   <h1>Happy Birthday My Love 🎂</h1>
   <div id="cake">
-    <div id="cakeText">Happy Birthday Meri Bacha 💖</div>
+    <div id="cakeText">Happy Birthday Meri Bacha ❤️</div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
     <div class="candle"><div class="flame"></div></div>
   </div>
-  <div id="blowText">Tap each candle to blow them out 💨 (4 taps)</div>
+  <div id="blowText">Tap each candle to blow them out 👉 (4 taps)</div>
 </div>
 
 <!-- 🔑 PASSWORD -->
@@ -351,16 +322,6 @@ body{
   <div class="hint">First name I have given to you… <b>Shehzadi</b> 💕</div>
   <input id="pass" type="password" placeholder="Enter the key">
   <button onclick="unlock()">Unlock 💌</button>
-</div>
-
-<!-- 👉 SWIPE -->
-<div id="swipeScreen">
-  <h2>Wait… 💞</h2>
-  <div id="swipeText">
-    This is not all… but this is all I have to tell you.<br>
-    Swipe to read my love ❤️
-  </div>
-  <div id="swipeHint">⇆ Swipe left or right</div>
 </div>
 
 <!-- 🎂 CUT -->
@@ -374,7 +335,7 @@ body{
 <div id="main">
   <div id="title">Happy Birthday My Love 💚</div>
   <div id="note"></div>
-  <div id="finalSwipeHint">⇆ Swipe to see my final words</div>
+  <div id="finalHint">👉 Two fingers / Double click / Space for final</div>
 </div>
 
 <!-- 💖 FINAL -->
@@ -389,6 +350,7 @@ body{
 
 <script>
 let blownCount = 0;
+let step = 0;
 
 /* 👆 CANDLES */
 document.querySelectorAll(".candle").forEach(candle=>{
@@ -421,74 +383,21 @@ function sparkleEffect(){
 }
 
 /* 🔑 PASSWORD */
-const realPassword = "nakchadi";
+const realPassword = "shehzadi";
 function unlock(){
   const input=document.getElementById("pass").value;
   if(input.toLowerCase()===realPassword){
-    document.getElementById("passwordScreen").style.display="none";
-    const swipe = document.getElementById("swipeScreen");
-    swipe.style.display="flex";
-    swipe.style.opacity=0;
-    setTimeout(()=>{ swipe.style.opacity=1; },50);
+    goNext();
   }else{
     alert("Wrong key 💔 Try again");
   }
-}
-
-/* 👉 SWIPE TO CUT */
-let startX = 0;
-let swiped = false;
-const swipeScreen = document.getElementById("swipeScreen");
-
-/* 📱 Mobile Swipe */
-swipeScreen.addEventListener("touchstart", e=>{
-  startX = e.touches[0].clientX;
-});
-swipeScreen.addEventListener("touchend", e=>{
-  let endX = e.changedTouches[0].clientX;
-  if(Math.abs(endX - startX) > 80 && !swiped){
-    swiped = true;
-    showCut();
-  }
-});
-
-/* 🖱️ PC Mouse Drag */
-swipeScreen.addEventListener("mousedown", e=>{
-  startX = e.clientX;
-});
-swipeScreen.addEventListener("mouseup", e=>{
-  let endX = e.clientX;
-  if(Math.abs(endX - startX) > 80 && !swiped){
-    swiped = true;
-    showCut();
-  }
-});
-
-/* 🖱️ PC Click (Simple Option) */
-swipeScreen.addEventListener("click", ()=>{
-  if(!swiped){
-    swiped = true;
-    showCut();
-  }
-});
-
-function showCut(){
-  swipeScreen.style.opacity = 0;
-  setTimeout(()=>{
-    swipeScreen.style.display="none";
-    const cut = document.getElementById("cutScreen");
-    cut.style.display="flex";
-    setTimeout(()=>{ cut.style.opacity = 1; },50);
-  },500);
 }
 
 /* 🎂 CUT CAKE */
 document.getElementById("knife").addEventListener("click", ()=>{
   sparkleEffect();
   fireworks();
-  document.getElementById("cutScreen").style.display="none";
-  document.getElementById("main").style.display="block";
-  typeNote();
+  goNext();
 });
 
 /* ✍️ TYPING NOTE */
@@ -520,26 +429,46 @@ function typeNote(){
   }
 }
 
-/* 👉 FINAL SWIPE */
-let noteStartX = 0;
-const main = document.getElementById("main");
+/* 🔁 UNIVERSAL NEXT */
+function goNext(){
+  if(step === 0){
+    document.getElementById("passwordScreen").style.display="none";
+    const cut = document.getElementById("cutScreen");
+    cut.style.display="flex";
+    setTimeout(()=>{ cut.style.opacity = 1; },50);
+    step++;
+  }
+  else if(step === 1){
+    document.getElementById("cutScreen").style.display="none";
+    document.getElementById("main").style.display="block";
+    typeNote();
+    step++;
+  }
+  else if(step === 2){
+    document.getElementById("main").style.display="none";
+    const final = document.getElementById("finalScreen");
+    final.style.display="flex";
+    setTimeout(()=>{ final.style.opacity=1; },50);
+    step++;
+  }
+}
 
-main.addEventListener("touchstart", e=>{
-  noteStartX = e.touches[0].clientX;
-});
-main.addEventListener("touchend", e=>{
-  let endX = e.changedTouches[0].clientX;
-  if(Math.abs(endX - noteStartX) > 80){
-    showFinal();
+/* 📱 2-FINGER TOUCH */
+document.body.addEventListener("touchstart", (e)=>{
+  if(e.touches.length === 2){
+    goNext();
   }
 });
 
-function showFinal(){
-  document.getElementById("main").style.display="none";
-  const final = document.getElementById("finalScreen");
-  final.style.display="flex";
-  setTimeout(()=>{ final.style.opacity=1; },50);
-}
+/* 🖥️ PC: DOUBLE CLICK OR SPACE */
+document.body.addEventListener("dblclick", ()=>{
+  goNext();
+});
+document.addEventListener("keydown", (e)=>{
+  if(e.code === "Space"){
+    goNext();
+  }
+});
 
 /* 🎆 FIREWORKS */
 function fireworks(){
@@ -569,4 +498,3 @@ document.body.addEventListener("click",(e)=>{
 
 </body>
 </html>
-
