@@ -2,158 +2,151 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Surprise 💗</title>
+<title>Birthday Surprise 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
-
-*{
+html,body{
   margin:0;
   padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
-}
-
-body{
-  height:100vh;
+  width:100%;
+  height:100%;
   overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd, #c2e9fb);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  font-family:'Segoe Script', cursive;
+  background:linear-gradient(120deg,#ffd1e8,#d6e4ff,#e6d7ff);
+  background-size:400% 400%;
+  animation:bg 12s ease infinite;
 }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-.container{
+#center{
+  position:absolute;
+  top:40%;
+  width:100%;
   text-align:center;
-  padding:20px;
-  z-index:2;
+  transform:translateY(-50%);
 }
 
-#typingText{
-  font-family:'Great Vibes', cursive;
-  font-size:3.2em;
+#title{
+  font-size:3em;
   color:#ff2f92;
-  text-shadow:
-    0 0 5px #ff4d88,
-    0 0 10px #ff4d88,
-    0 0 20px #ff4d88,
-    0 0 40px #ff1a66;
-  animation: glowPulse 2s infinite alternate;
+  text-shadow:0 0 10px #ff7acb,0 0 25px #ffc1e3;
+  min-height:1.5em;
 }
 
-@keyframes glowPulse {
-  from { text-shadow: 0 0 5px #ff4d88, 0 0 10px #ff4d88; }
-  to   { text-shadow: 0 0 20px #ff4d88, 0 0 40px #ff1a66; }
-}
-
-.sub{
+#tap{
   margin-top:15px;
   font-size:1.1em;
-  color:white;
-  opacity:0.9;
+  color:#444;
 }
 
-/* Music button */
-#musicBtn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  padding:12px 18px;
-  border-radius:30px;
-  border:none;
-  background:#ff4d88;
-  color:white;
-  font-size:14px;
-  box-shadow:0 0 20px #ff4d88;
-  cursor:pointer;
-  z-index:9999;
+#note{
+  display:none;
+  max-width:900px;
+  margin:60px auto;
+  padding:20px;
+  text-align:center;
+  font-size:1.8em;
+  line-height:1.6;
+  color:#2b004f;
+  text-shadow:0 0 10px #ff7acb,0 0 20px #ffb3de;
+  animation:fade 2s ease forwards;
 }
 
-/* Hearts */
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
 .heart{
   position:fixed;
   font-size:22px;
-  animation: floatUp 2s ease-out forwards;
+  animation:float 3s linear forwards;
   pointer-events:none;
 }
 
-@keyframes floatUp{
-  0% {transform: translateY(0) scale(0.5); opacity:1;}
-  100% {transform: translateY(-120px) scale(1.5); opacity:0;}
+@keyframes float{
+  from{transform:translateY(0) scale(1);opacity:1;}
+  to{transform:translateY(-150px) scale(1.8);opacity:0;}
+}
+
+#playing{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff5fa2;
+  color:white;
+  padding:10px 16px;
+  border-radius:30px;
+  font-size:14px;
+  display:none;
+  box-shadow:0 0 15px #ff8fc2;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1 id="typingText"></h1>
-  <div class="sub">Touch anywhere on the screen 💕</div>
+<div id="center">
+  <div id="title"></div>
+  <div id="tap">Touch anywhere on the screen 💖</div>
 </div>
 
-<!-- 🎵 Music -->
-<audio id="bgMusic" loop>
-  <source src="o-maahi.mp3" type="audio/mpeg">
-</audio>
+<div id="note">
+WELCOME TO A DAY FILLED WITH LOVE, SMILES, AND BEAUTIFUL MEMORIES.  
+THE BEST DAY OF THE YEAR IS HERE — YOUR BIRTHDAY 😘  
+HAPPIEST BIRTHDAY TO MY LOVE MY EVERYTHING 💜.....
+</div>
 
-<button id="musicBtn">▶ Play Music</button>
+<div id="playing">🎵 Playing...</div>
+
+<audio id="song" src="o-maahi.mp3.mp3"></audio>
 
 <script>
-/* 💗 Typing effect */
-const text = "Happy Birthday My Love 💗🎂✨";
-let i = 0;
-const speed = 100;
+const text="Happy Birthday My Love ❤️🎂✨";
+let i=0;
+const title=document.getElementById("title");
 
-function typeEffect() {
-  if (i < text.length) {
-    document.getElementById("typingText").innerHTML += text.charAt(i);
+function type(){
+  if(i<text.length){
+    title.innerHTML+=text.charAt(i);
     i++;
-    setTimeout(typeEffect, speed);
+    setTimeout(type,100);
   }
 }
-window.onload = typeEffect;
+type();
 
-/* 🎵 Music start from 1:20 */
-const music = document.getElementById("bgMusic");
-const btn = document.getElementById("musicBtn");
+const colors=["❤️","💙","💜","💚","💛","🩵","🩷","🤍"];
+let started=false;
+const audio=document.getElementById("song");
 
-btn.addEventListener("click", () => {
-  music.currentTime = 80;
-  music.play();
-  btn.innerText = "🎵 Playing...";
+document.body.addEventListener("click",e=>{
+  pop(e.clientX,e.clientY);
+
+  if(!started){
+    started=true;
+    document.getElementById("note").style.display="block";
+    document.getElementById("playing").style.display="block";
+
+    audio.currentTime=80; // 1 minute 20 seconds
+    audio.play();
+  }
 });
 
-/* 💕 Hearts on touch/click */
-const colors = ["#ff2f92","#00ffcc","#7f7cff","#a855f7","#22c55e","#38bdf8","#f43f5e"];
-
-function createHeart(x,y){
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤";
-  heart.style.left = x + "px";
-  heart.style.top = y + "px";
-  heart.style.color = colors[Math.floor(Math.random()*colors.length)];
-  document.body.appendChild(heart);
-  setTimeout(()=>{heart.remove();},2000);
+function pop(x,y){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML=colors[Math.floor(Math.random()*colors.length)];
+  h.style.left=x+"px";
+  h.style.top=y+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),3000);
 }
-
-document.addEventListener("click", e=>{
-  createHeart(e.clientX, e.clientY);
-});
-
-document.addEventListener("touchstart", e=>{
-  const t = e.touches[0];
-  createHeart(t.clientX, t.clientY);
-});
 </script>
 
 </body>
