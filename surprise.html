@@ -27,6 +27,15 @@ body{
   100%{background-position:0% 50%}
 }
 
+/* ✨ FADE */
+.fade{
+  transition:opacity 1s ease;
+}
+.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
 /* 🔒 LOCK */
 #lock{
   position:fixed;
@@ -68,7 +77,7 @@ body{
 /* 🎂 TEXT ON CAKE */
 #cakeText{
   position:absolute;
-  top:58%;
+  top:60%;
   left:50%;
   transform:translate(-50%,-50%);
   width:100%;
@@ -78,7 +87,6 @@ body{
   font-weight:bold;
   text-shadow:0 0 6px #fff;
   padding:0 12px;
-  pointer-events:none;
 }
 
 /* 🕯 CANDLES */
@@ -159,7 +167,7 @@ body{
   box-shadow:0 0 15px #ff8fc7;
 }
 
-/* 🔪 CUT SCREEN */
+/* 🔪 CUT */
 #cutScreen{
   display:none;
   position:fixed;
@@ -193,7 +201,6 @@ body{
   width:0;
   height:4px;
   background:#ff4d88;
-  box-shadow:0 0 12px #ff9acb;
   margin-top:15px;
   transition:width 1s ease;
 }
@@ -209,8 +216,7 @@ body{
   text-align:center;
   margin-top:50px;
   font-size:2.8em;
-  color:#6fffd6;
-  text-shadow:0 0 4px #a6fff0;
+  color:#2f9e8f;
 }
 #note{
   max-width:900px;
@@ -219,9 +225,10 @@ body{
   text-align:center;
   font-size:1.45em;
   line-height:1.8;
-  color:#bfffee;
-  text-shadow:0 0 2px #e6fff9;
+  color:#333;
   white-space:pre-wrap;
+  background:rgba(255,255,255,0.3);
+  border-radius:20px;
 }
 #finalHint{
   text-align:center;
@@ -259,46 +266,33 @@ body{
   line-height:1.8;
 }
 
-/* 💖 HEARTS */
-.heart{
+/* 💖 FALLING HEARTS */
+.fallHeart{
   position:fixed;
-  font-size:22px;
-  animation:float 3s linear forwards;
+  top:-30px;
+  font-size:20px;
+  animation:fall 8s linear forwards;
   pointer-events:none;
 }
-@keyframes float{
-  from{transform:translateY(0) scale(1);opacity:1;}
-  to{transform:translateY(-150px) scale(1.8);opacity:0;}
+@keyframes fall{
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(110vh);opacity:0;}
 }
 
 /* ✨ SPARKLES */
-.sparkle{
+.spark{
   position:fixed;
-  width:6px;
-  height:6px;
+  width:4px;
+  height:4px;
   background:white;
   border-radius:50%;
-  box-shadow:0 0 10px #fff;
-  animation:spark 1.2s ease-out forwards;
+  box-shadow:0 0 6px white;
+  animation:sparkMove 3s linear forwards;
   pointer-events:none;
 }
-@keyframes spark{
-  from{transform:scale(1);opacity:1;}
-  to{transform:scale(0);opacity:0;}
-}
-
-/* 🎆 FIREWORKS */
-.firework{
-  position:fixed;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  animation:boom 1.5s ease-out forwards;
-  pointer-events:none;
-}
-@keyframes boom{
-  from{transform:scale(0);opacity:1;}
-  to{transform:scale(2);opacity:0;}
+@keyframes sparkMove{
+  from{opacity:1;}
+  to{opacity:0; transform:translateY(-80px);}
 }
 </style>
 </head>
@@ -306,7 +300,7 @@ body{
 <body>
 
 <!-- 🎂 LOCK -->
-<div id="lock">
+<div id="lock" class="fade">
   <h1>Happy Birthday My Love 🎂</h1>
   <div id="cake">
     <div id="cakeText">Happy Birthday Meri Bacha ❤️</div>
@@ -319,7 +313,7 @@ body{
 </div>
 
 <!-- 🔑 PASSWORD -->
-<div id="passwordScreen">
+<div id="passwordScreen" class="fade hidden">
   <h2>Every love has a special key 💖</h2>
   <div class="hint">First name I have given to you… <b>Shehzadi</b> 💕</div>
   <input id="pass" type="password" placeholder="Enter the key">
@@ -327,17 +321,17 @@ body{
 </div>
 
 <!-- 🔪 CUT -->
-<div id="cutScreen">
+<div id="cutScreen" class="fade hidden">
   <h2 style="color:#ff4d88;">Cut the cake for us 🎂</h2>
   <div id="knife"></div>
   <div id="cutLine"></div>
 </div>
 
 <!-- 💚 NOTE -->
-<div id="main">
+<div id="main" class="fade hidden">
   <div id="title">Happy Birthday My Love 💚</div>
   <div id="note"></div>
-  <div id="finalHint">👉 Two fingers / Double click / Space for final</div>
+  <div id="finalHint">Double click for my final message 💖</div>
 </div>
 
 <!-- 💖 FINAL -->
@@ -361,75 +355,54 @@ document.querySelectorAll(".candle").forEach(candle=>{
     if(flame && flame.style.display !== "none"){
       flame.style.display = "none";
       blownCount++;
-      sparkleEffect();
       if(blownCount === 4){
-        setTimeout(()=>{
-          document.getElementById("lock").style.display="none";
-          document.getElementById("passwordScreen").style.display="flex";
-        },800);
+        fadeOut("lock", ()=>{
+          fadeIn("passwordScreen");
+        });
       }
     }
   });
 });
-
-/* ✨ SPARKLES */
-function sparkleEffect(){
-  for(let i=0;i<15;i++){
-    const s=document.createElement("div");
-    s.className="sparkle";
-    s.style.left=(window.innerWidth/2 + Math.random()*120 - 60)+"px";
-    s.style.top=(window.innerHeight/2 + Math.random()*120 - 60)+"px";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1200);
-  }
-}
 
 /* 🔑 PASSWORD */
 const realPassword = "shehzadi";
 function unlock(){
   const input=document.getElementById("pass").value;
   if(input.toLowerCase()===realPassword){
-    goNext();
+    fadeOut("passwordScreen", ()=>{
+      fadeIn("cutScreen");
+      step = 1;
+    });
   }else{
     alert("Wrong key 💔 Try again");
   }
 }
 
-/* 🔪 KNIFE CUT ANIMATION */
+/* 🔪 KNIFE */
 document.getElementById("knife").addEventListener("click", ()=>{
-  const knife = document.getElementById("knife");
-  const line = document.getElementById("cutLine");
-
-  knife.style.transform = "translateX(120px)";
-  line.style.width = "200px";
-
-  sparkleEffect();
-  fireworks();
-
+  document.getElementById("knife").style.transform = "translateX(120px)";
+  document.getElementById("cutLine").style.width = "200px";
   setTimeout(()=>{
-    goNext();
+    fadeOut("cutScreen", ()=>{
+      fadeIn("main");
+      typeNote();
+      step = 2;
+    });
   },1200);
 });
 
-/* ✍️ TYPING NOTE */
+/* ✍️ NOTE */
 const message = `
 You make my world brighter every day 🌸 I’m so lucky to have you ❤️
 Aaj tumhara birthday hai, aur honestly mere paas itne lafz hi nahi hain jo bata sakein ke tum meri zindagi mein kitni important ho.
 Tum sirf meri partner nahi ho, tum meri best friend ho, meri aadat ho, aur meri strength bhi ho.
 
 Humari relationship perfect kabhi nahi rahi, aur shayad isi wajah se yeh itni special hai.
-Hum hase bhi bohot hain, enjoy bhi bohot kiya hai — choti choti baaton pe hansna, late night baatein, bina wajah ke plans, aur woh moments jo sirf hum dono ko samajh aate hain.
-
 Tumhare saath har normal din bhi special lagta hai.
-Haan, hum lade bhi hain… bohot lade hain. Kabhi ego aaya, kabhi gussa, kabhi misunderstanding.
-Par har fight ke baad hum wapas aaye — thode aur strong, thode aur close.
-
-Aaj tumhara din hai.
-Aur main chahta hoon ke tum hamesha smile karo, hamesha khush raho, aur hamesha yeh yaad rakho ke tumhe bohot, bohot, bohot pyaar kiya jaata hai 💚
+Tumhe bohot, bohot, bohot pyaar kiya jaata hai 💚
 
 Happy Birthday My Love 🎂✨
 `;
-
 let i=0;
 const note=document.getElementById("note");
 function typeNote(){
@@ -440,65 +413,53 @@ function typeNote(){
   }
 }
 
-/* 🔁 FLOW */
-function goNext(){
-  if(step === 0){
-    document.getElementById("passwordScreen").style.display="none";
-    document.getElementById("cutScreen").style.display="flex";
-    step++;
-  }
-  else if(step === 1){
-    document.getElementById("cutScreen").style.display="none";
-    document.getElementById("main").style.display="block";
-    typeNote();
-    step++;
-  }
-  else if(step === 2){
-    document.getElementById("main").style.display="none";
-    const final = document.getElementById("finalScreen");
-    final.style.display="flex";
-    setTimeout(()=>{ final.style.opacity=1; },50);
-    step++;
-  }
-}
-
-/* 📱 2-FINGER TOUCH */
-document.body.addEventListener("touchstart", (e)=>{
-  if(e.touches.length === 2){
-    goNext();
+/* 🖱️ SINGLE CLICK → NOTHING (JUST READING) */
+/* 🖱️ DOUBLE CLICK → FINAL SCREEN */
+document.body.addEventListener("dblclick", ()=>{
+  if(step === 2){
+    fadeOut("main", ()=>{
+      const final = document.getElementById("finalScreen");
+      final.style.display="flex";
+      setTimeout(()=>{ final.style.opacity=1; },50);
+    });
   }
 });
 
-/* 🖥️ PC */
-document.body.addEventListener("dblclick", ()=>{ goNext(); });
-document.addEventListener("keydown", (e)=>{
-  if(e.code === "Space"){ goNext(); }
-});
-
-/* 🎆 FIREWORKS */
-function fireworks(){
-  for(let i=0;i<40;i++){
-    const f=document.createElement("div");
-    f.className="firework";
-    f.style.left=Math.random()*window.innerWidth+"px";
-    f.style.top=Math.random()*window.innerHeight+"px";
-    f.style.background=["#ff4d88","#ffd700","#7CFFB2","#6ecbff","#c77dff"][Math.floor(Math.random()*5)];
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1500);
-  }
+/* 🌫️ FADE HELPERS */
+function fadeOut(id,callback){
+  const el=document.getElementById(id);
+  el.classList.add("hidden");
+  setTimeout(()=>{
+    el.style.display="none";
+    if(callback) callback();
+  },1000);
+}
+function fadeIn(id){
+  const el=document.getElementById(id);
+  el.style.display="flex";
+  setTimeout(()=>{ el.classList.remove("hidden"); },50);
 }
 
-/* 💖 HEARTS */
-const hearts=["💚","💛","💙","💖","❤️","💜"];
-document.body.addEventListener("click",(e)=>{
+/* 💖 FALLING HEARTS */
+const heartColors = ["❤️","💚","💜","💙","💖","💛","🤍","🧡"];
+setInterval(()=>{
   const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
-  h.style.left=e.clientX+"px";
-  h.style.top=e.clientY+"px";
+  h.className="fallHeart";
+  h.innerHTML=heartColors[Math.floor(Math.random()*heartColors.length)];
+  h.style.left=Math.random()*window.innerWidth+"px";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),3000);
-});
+  setTimeout(()=>h.remove(),8000);
+},500);
+
+/* ✨ SPARKLES */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="spark";
+  s.style.left=Math.random()*window.innerWidth+"px";
+  s.style.top=Math.random()*window.innerHeight+"px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),3000);
+},300);
 </script>
 
 </body>
