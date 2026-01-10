@@ -15,6 +15,7 @@ html,body{
   background:linear-gradient(120deg,#ffd1e8,#d6e4ff,#e6d7ff);
   background-size:400% 400%;
   animation:bg 12s ease infinite;
+  overflow-x:hidden;
 }
 
 @keyframes bg{
@@ -23,7 +24,8 @@ html,body{
   100%{background-position:0% 50%}
 }
 
-#startScreen{
+/* PASSWORD SCREEN */
+#lock{
   position:fixed;
   inset:0;
   display:flex;
@@ -31,28 +33,61 @@ html,body{
   justify-content:center;
   align-items:center;
   text-align:center;
+  backdrop-filter: blur(2px);
 }
 
+#lock h1{
+  color:#ff2f92;
+  text-shadow:0 0 12px #ff8fc7;
+  font-size:2.8em;
+}
+
+#lock input{
+  padding:12px;
+  border-radius:25px;
+  border:none;
+  outline:none;
+  font-size:1.1em;
+  text-align:center;
+  margin-top:15px;
+}
+
+#lock button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  background:#ff5fa2;
+  color:white;
+  font-size:1em;
+  cursor:pointer;
+  box-shadow:0 0 15px #ff8fc7;
+}
+
+#hint{
+  margin-top:12px;
+  font-size:0.95em;
+  color:#444;
+}
+
+/* MAIN */
+#main{display:none;}
+
 #title{
+  text-align:center;
+  margin-top:80px;
   font-size:3em;
   color:#ff2f92;
   text-shadow:0 0 10px #ff7acb,0 0 25px #ffc1e3;
   min-height:1.5em;
 }
 
-#tap{
-  margin-top:15px;
-  font-size:1.1em;
-  color:#444;
-}
-
 #note{
-  display:none;
   max-width:900px;
-  margin:80px auto;
+  margin:50px auto 80px;
   padding:25px;
   text-align:center;
-  font-size:1.6em;
+  font-size:1.5em;
   line-height:1.8;
   color:#4b006e;
   text-shadow:0 0 10px #ff7acb,0 0 20px #ffb3de;
@@ -85,7 +120,6 @@ html,body{
   padding:10px 16px;
   border-radius:30px;
   font-size:14px;
-  display:none;
   box-shadow:0 0 15px #ff8fc2;
 }
 </style>
@@ -93,12 +127,19 @@ html,body{
 
 <body>
 
-<div id="startScreen">
-  <div id="title"></div>
-  <div id="tap">Touch anywhere on the screen 💖</div>
+<!-- PASSWORD -->
+<div id="lock">
+  <h1>💖 Unlock My Heart 💖</h1>
+  <input id="pass" type="password" placeholder="Enter password">
+  <button onclick="unlock()">Unlock 💌</button>
+  <div id="hint">Hint: Our special name / word 💞</div>
 </div>
 
-<div id="note">
+<!-- MAIN -->
+<div id="main">
+  <div id="title"></div>
+
+  <div id="note">
 You make my world brighter every day 🌸 I’m so lucky to have you ❤️  
 Aaj tumhara birthday hai, aur honestly mere paas itne lafz hi nahi hain jo bata sakein ke tum meri zindagi mein kitni important ho.  
 Tum sirf meri partner nahi ho, tum meri best friend ho, meri aadat ho, aur meri strength bhi ho.  
@@ -112,56 +153,58 @@ Par har fight ke baad hum wapas aaye — thode aur strong, thode aur close.
 
 Aaj tumhara din hai. Aur main chahta hoon ke tum hamesha smile karo, hamesha khush raho, aur hamesha yeh yaad rakho ke tumhe bohot, bohot, bohot pyaar kiya jaata hai 💜  
 
-Happy Birthday My Tanjeena bacha 🎂✨
-</div>
+Happy Birthday My Love 🎂✨
+  </div>
 
-<div id="playing">🎵 Playing...</div>
+  <div id="playing">🎵 Playing...</div>
+</div>
 
 <audio id="song" preload="auto">
   <source src="o-maahi.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+const realPassword = "love"; // 👉 CHANGE this to your secret word
+
+function unlock(){
+  const input=document.getElementById("pass").value;
+  if(input===realPassword){
+    document.getElementById("lock").style.display="none";
+    document.getElementById("main").style.display="block";
+    start();
+  }else{
+    alert("Wrong password 💔 Try again");
+  }
+}
+
 const text="Happy Birthday My Love ❤️🎂✨";
 let i=0;
-const title=document.getElementById("title");
 
 function type(){
   if(i<text.length){
-    title.innerHTML+=text.charAt(i);
+    document.getElementById("title").innerHTML+=text.charAt(i);
     i++;
     setTimeout(type,100);
   }
 }
-type();
+
+function start(){
+  type();
+  const audio=document.getElementById("song");
+  audio.currentTime=80;
+  audio.play();
+}
 
 const colors=["❤️","💙","💜","💚","💛","🩵","🩷","🤍"];
-let started=false;
-const audio=document.getElementById("song");
-
 document.body.addEventListener("click",(e)=>{
-  pop(e.clientX,e.clientY);
-
-  if(!started){
-    started=true;
-    document.getElementById("note").style.display="block";
-    document.getElementById("playing").style.display="block";
-    document.getElementById("startScreen").style.display="none";
-
-    audio.currentTime=80;
-    audio.play().catch(()=>alert("Tap again to allow music 🎵"));
-  }
-});
-
-function pop(x,y){
   const h=document.createElement("div");
   h.className="heart";
   h.innerHTML=colors[Math.floor(Math.random()*colors.length)];
-  h.style.left=x+"px";
-  h.style.top=y+"px";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),3000);
-}
+});
 </script>
 
 </body>
