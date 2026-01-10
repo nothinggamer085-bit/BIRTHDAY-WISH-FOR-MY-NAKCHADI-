@@ -21,7 +21,6 @@ body{
   background-size:400% 400%;
   animation:bg 18s ease infinite;
 }
-
 @keyframes bg{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
@@ -37,50 +36,50 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
-  backdrop-filter:blur(2px);
 }
-
 #lock h1{
   color:#ff4d88;
   text-shadow:0 0 15px #ff8fc7;
   font-size:2.6em;
-  margin-bottom:20px;
+  margin-bottom:10px;
 }
 
 /* 🎂 CAKE */
 #cake{
   position:relative;
-  width:160px;
-  height:120px;
+  width:180px;
+  height:130px;
   background:#ffb3c6;
-  border-radius:0 0 20px 20px;
+  border-radius:0 0 25px 25px;
   box-shadow:0 0 20px #ff8fab;
+  margin-top:-10px;
 }
-
 #cake:before{
   content:"";
   position:absolute;
   top:-30px;
   left:0;
-  width:160px;
+  width:180px;
   height:30px;
   background:#ffd6e8;
-  border-radius:20px 20px 0 0;
+  border-radius:25px 25px 0 0;
 }
 
-/* 🕯 CANDLE */
-#candle{
+/* 🕯 CANDLES */
+.candle{
   position:absolute;
   top:-70px;
-  left:50%;
-  transform:translateX(-50%);
   width:10px;
   height:40px;
   background:#fff;
   border-radius:5px;
 }
+.candle:nth-child(1){ left:35px; }
+.candle:nth-child(2){ left:75px; }
+.candle:nth-child(3){ left:115px; }
+.candle:nth-child(4){ left:155px; }
 
-#flame{
+.flame{
   position:absolute;
   top:-20px;
   left:50%;
@@ -91,7 +90,6 @@ body{
   border-radius:50%;
   animation:flicker 0.4s infinite alternate;
 }
-
 @keyframes flicker{
   from{transform:translateX(-50%) scale(1);}
   to{transform:translateX(-50%) scale(1.1);}
@@ -113,13 +111,16 @@ body{
   flex-direction:column;
   text-align:center;
 }
-
 #passwordScreen h2{
   color:#ff4d88;
   text-shadow:0 0 10px #ff8fc7;
   font-size:2.2em;
 }
-
+#passwordScreen .hint{
+  margin-top:6px;
+  color:#555;
+  font-size:1em;
+}
 #passwordScreen input{
   padding:12px;
   border-radius:25px;
@@ -129,7 +130,6 @@ body{
   text-align:center;
   margin-top:15px;
 }
-
 #passwordScreen button{
   margin-top:15px;
   padding:10px 20px;
@@ -142,9 +142,42 @@ body{
   box-shadow:0 0 15px #ff8fc7;
 }
 
+/* 🎂 CUT CAKE SCREEN */
+#cutScreen{
+  display:none;
+  position:fixed;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+#knife{
+  margin-top:20px;
+  width:120px;
+  height:6px;
+  background:#ccc;
+  border-radius:5px;
+  position:relative;
+  cursor:pointer;
+}
+#knife:after{
+  content:"";
+  position:absolute;
+  right:-12px;
+  top:-6px;
+  width:14px;
+  height:18px;
+  background:#999;
+  border-radius:3px;
+}
+#cutText{
+  margin-top:10px;
+  color:#555;
+}
+
 /* 💚 MAIN NOTE */
 #main{ display:none; }
-
 #title{
   text-align:center;
   margin-top:60px;
@@ -152,7 +185,6 @@ body{
   color:#7CFFB2;
   text-shadow:0 0 10px #2cff9a, 0 0 25px #00ffb3;
 }
-
 #note{
   max-width:900px;
   margin:40px auto 80px;
@@ -172,7 +204,6 @@ body{
   animation:float 3s linear forwards;
   pointer-events:none;
 }
-
 @keyframes float{
   from{transform:translateY(0) scale(1);opacity:1;}
   to{transform:translateY(-150px) scale(1.8);opacity:0;}
@@ -189,7 +220,6 @@ body{
   animation:spark 1.2s ease-out forwards;
   pointer-events:none;
 }
-
 @keyframes spark{
   from{transform:scale(1);opacity:1;}
   to{transform:scale(0);opacity:0;}
@@ -204,7 +234,6 @@ body{
   animation:boom 1.5s ease-out forwards;
   pointer-events:none;
 }
-
 @keyframes boom{
   from{transform:scale(0);opacity:1;}
   to{transform:scale(2);opacity:0;}
@@ -218,18 +247,27 @@ body{
 <div id="lock">
   <h1>Happy Birthday My Love 🎂</h1>
   <div id="cake">
-    <div id="candle">
-      <div id="flame"></div>
-    </div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
   </div>
-  <div id="blowText">Blow the candle using your mic 💨</div>
+  <div id="blowText">Blow with your mic 🎤 or tap the candle 👆</div>
 </div>
 
 <!-- 🔑 PASSWORD -->
 <div id="passwordScreen">
   <h2>Every love has a special key 💖</h2>
+  <div class="hint">My first name I have given you… <b>Shehzadi</b> 💕</div>
   <input id="pass" type="password" placeholder="Enter the key">
   <button onclick="unlock()">Unlock 💌</button>
+</div>
+
+<!-- 🎂 CUT CAKE -->
+<div id="cutScreen">
+  <h2 style="color:#ff4d88;">Cut the cake for us 🎂</h2>
+  <div id="knife"></div>
+  <div id="cutText">Tap the knife to cut 💞</div>
 </div>
 
 <!-- 💚 MAIN CONTENT -->
@@ -239,9 +277,9 @@ body{
 </div>
 
 <script>
-/* 🎤 MICROPHONE BLOW DETECTION */
 let blown = false;
 
+/* 🎤 MICROPHONE */
 async function startMic(){
   try{
     const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
@@ -252,15 +290,12 @@ async function startMic(){
     mic.connect(analyser);
 
     const data = new Uint8Array(analyser.frequencyBinCount);
-
     function detectBlow(){
       if(blown) return;
       analyser.getByteFrequencyData(data);
-
       let sum = 0;
       for(let i=0;i<data.length;i++) sum += data[i];
       let volume = sum / data.length;
-
       if(volume > 60){
         blowOut();
         blown = true;
@@ -269,12 +304,21 @@ async function startMic(){
     }
     detectBlow();
   }catch(e){
-    document.getElementById("blowText").innerText = "Microphone blocked. Please allow mic and reload 🙏";
+    document.getElementById("blowText").innerText = "Mic blocked. You can tap the candle 👆";
   }
 }
 
+/* 👆 TAP CANDLE */
+document.getElementById("cake").addEventListener("click", ()=>{
+  if(!blown){
+    blowOut();
+    blown = true;
+  }
+});
+
+/* 🕯 BLOW OUT */
 function blowOut(){
-  document.getElementById("flame").style.display="none";
+  document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
   sparkleEffect();
   setTimeout(()=>{
     document.getElementById("lock").style.display="none";
@@ -287,27 +331,34 @@ function sparkleEffect(){
   for(let i=0;i<30;i++){
     const s=document.createElement("div");
     s.className="sparkle";
-    s.style.left=(window.innerWidth/2 + Math.random()*100 - 50)+"px";
-    s.style.top=(window.innerHeight/2 + Math.random()*100 - 50)+"px";
+    s.style.left=(window.innerWidth/2 + Math.random()*120 - 60)+"px";
+    s.style.top=(window.innerHeight/2 + Math.random()*120 - 60)+"px";
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),1200);
   }
 }
 
 /* 🔑 PASSWORD */
-const realPassword = "love"; // change your secret word
+const realPassword = "shehzadi"; // you can change if you want
 
 function unlock(){
   const input=document.getElementById("pass").value;
-  if(input===realPassword){
+  if(input.toLowerCase()===realPassword){
     document.getElementById("passwordScreen").style.display="none";
-    document.getElementById("main").style.display="block";
-    typeNote();
-    fireworks();
+    document.getElementById("cutScreen").style.display="flex";
   }else{
     alert("Wrong key 💔 Try again");
   }
 }
+
+/* 🎂 CUT CAKE */
+document.getElementById("knife").addEventListener("click", ()=>{
+  sparkleEffect();
+  fireworks();
+  document.getElementById("cutScreen").style.display="none";
+  document.getElementById("main").style.display="block";
+  typeNote();
+});
 
 /* ✍️ TYPING NOTE */
 const message = `
@@ -330,7 +381,6 @@ Happy Birthday My Love 🎂✨
 
 let i=0;
 const note=document.getElementById("note");
-
 function typeNote(){
   if(i<message.length){
     note.innerHTML+=message.charAt(i);
@@ -352,7 +402,7 @@ function fireworks(){
   }
 }
 
-/* 💖 HEARTS ON TOUCH */
+/* 💖 HEARTS */
 const hearts=["💚","💛","💙","💖","❤️","💜"];
 document.body.addEventListener("click",(e)=>{
   const h=document.createElement("div");
