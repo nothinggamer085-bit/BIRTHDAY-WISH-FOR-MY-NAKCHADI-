@@ -159,9 +159,10 @@ Happy Birthday My Love 🎂✨
   <div id="playing">🎵 Playing...</div>
 </div>
 
-<audio id="song" preload="auto">
-  <source src="o-maahi.mp3.mp3" type="audio/mpeg">
+<audio id="song">
+  <source src="o-maahi.mp3" type="audio/mpeg">
 </audio>
+
 
 <script>
 const realPassword = "love"; // 👉 CHANGE this to your secret word
@@ -190,10 +191,17 @@ function type(){
 
 function start(){
   type();
-  const audio=document.getElementById("song");
-  audio.currentTime=80;
-  audio.play();
+  const audio = document.getElementById("song");
+  audio.currentTime = 80;
+
+  audio.play().catch(()=>{
+    alert("Tap anywhere once to start the music 🎵");
+    document.body.addEventListener("click", ()=>{
+      audio.play();
+    }, { once:true });
+  });
 }
+
 
 const colors=["❤️","💙","💜","💚","💛","🩵","🩷","🤍"];
 document.body.addEventListener("click",(e)=>{
@@ -209,3 +217,4 @@ document.body.addEventListener("click",(e)=>{
 
 </body>
 </html>
+
