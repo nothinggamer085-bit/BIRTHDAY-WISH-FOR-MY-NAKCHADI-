@@ -440,12 +440,33 @@ let startX = 0;
 let swiped = false;
 const swipeScreen = document.getElementById("swipeScreen");
 
+/* 📱 Mobile Swipe */
 swipeScreen.addEventListener("touchstart", e=>{
   startX = e.touches[0].clientX;
 });
 swipeScreen.addEventListener("touchend", e=>{
   let endX = e.changedTouches[0].clientX;
   if(Math.abs(endX - startX) > 80 && !swiped){
+    swiped = true;
+    showCut();
+  }
+});
+
+/* 🖱️ PC Mouse Drag */
+swipeScreen.addEventListener("mousedown", e=>{
+  startX = e.clientX;
+});
+swipeScreen.addEventListener("mouseup", e=>{
+  let endX = e.clientX;
+  if(Math.abs(endX - startX) > 80 && !swiped){
+    swiped = true;
+    showCut();
+  }
+});
+
+/* 🖱️ PC Click (Simple Option) */
+swipeScreen.addEventListener("click", ()=>{
+  if(!swiped){
     swiped = true;
     showCut();
   }
@@ -548,3 +569,4 @@ document.body.addEventListener("click",(e)=>{
 
 </body>
 </html>
+
