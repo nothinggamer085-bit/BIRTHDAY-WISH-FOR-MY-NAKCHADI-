@@ -1,8 +1,407 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=surprise.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102f3d">
+<title>For Saima 🎂</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #f4ffff;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(52, 130, 111, .35), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(29, 92, 132, .4), transparent 35%),
+        linear-gradient(135deg, #071f27, #103d3c, #102b46);
+}
+
+/* Soft background glow */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(130, 255, 220, .08), transparent 40%);
+    pointer-events: none;
+}
+
+/* Falling petals */
+.petal {
+    position: fixed;
+    top: -50px;
+    z-index: 1;
+    pointer-events: none;
+    font-size: 20px;
+    opacity: .7;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(50vh) translateX(40px) rotate(180deg);
+    }
+    100% {
+        transform: translateY(110vh) translateX(-40px) rotate(360deg);
+    }
+}
+
+/* Screens */
+.screen {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Opening card */
+.intro-card {
+    width: min(92%, 500px);
+    padding: 45px 28px;
+    text-align: center;
+    border-radius: 28px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 20px 70px rgba(0,0,0,.35);
+    backdrop-filter: blur(14px);
+    animation: appear 1.5s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.small {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(32px, 9vw, 55px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.intro-text {
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    opacity: .9;
+    margin-bottom: 32px;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #4f9f88, #286d86);
+    box-shadow: 0 8px 30px rgba(53, 170, 150, .25);
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(53, 200, 170, .35);
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+/* Letter */
+.letter-screen {
+    align-items: flex-start;
+    padding-top: 55px;
+    padding-bottom: 55px;
+}
+
+.letter {
+    width: min(94%, 700px);
+    padding: 38px 25px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.13);
+    box-shadow: 0 20px 80px rgba(0,0,0,.3);
+    backdrop-filter: blur(13px);
+    animation: letterIn 1.3s ease;
+}
+
+@keyframes letterIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.letter-title {
+    text-align: center;
+    font-size: clamp(31px, 8vw, 48px);
+    margin-bottom: 8px;
+    text-shadow: 0 0 18px rgba(177,255,230,.35);
+}
+
+.subtitle {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    opacity: .6;
+    margin-bottom: 35px;
+}
+
+#message {
+    font-size: 18px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    text-shadow: 0 0 12px rgba(180,255,235,.18);
+    min-height: 350px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 20px;
+    background: #c7fff0;
+    margin-left: 3px;
+    animation: blink .7s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.signature {
+    margin-top: 35px;
+    text-align: right;
+    font-style: italic;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.signature.show {
+    opacity: .9;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .intro-card {
+        padding: 38px 22px;
+    }
+
+    .letter {
+        padding: 30px 20px;
+    }
+
+    #message {
+        font-size: 17px;
+        line-height: 1.85;
+    }
+}
+</style>
 </head>
-<body></body>
+
+<body>
+
+<!-- Falling petals -->
+<div class="petal" style="left:5%; animation-duration:10s; animation-delay:0s;">🍁</div>
+<div class="petal" style="left:18%; animation-duration:13s; animation-delay:2s;">🍃</div>
+<div class="petal" style="left:31%; animation-duration:9s; animation-delay:4s;">🍁</div>
+<div class="petal" style="left:46%; animation-duration:14s; animation-delay:1s;">🍃</div>
+<div class="petal" style="left:61%; animation-duration:11s; animation-delay:5s;">🍁</div>
+<div class="petal" style="left:76%; animation-duration:15s; animation-delay:3s;">🍃</div>
+<div class="petal" style="left:90%; animation-duration:10s; animation-delay:6s;">🍁</div>
+
+<!-- Opening -->
+<section id="intro" class="screen">
+    <div class="intro-card">
+
+        <div class="small">A little something for you</div>
+
+        <h1>Heyy Saima...</h1>
+
+        <p class="intro-text">
+            Are you interested in seeing my wish
+            for your birthday?
+        </p>
+
+        <button onclick="openWish()">
+            Tap here ✨
+        </button>
+
+    </div>
+</section>
+
+
+<!-- Birthday letter -->
+<section id="letterScreen" class="screen letter-screen hidden">
+
+    <div class="letter">
+
+        <h1 class="letter-title">
+            Happy Birthday, Saima 🎂
+        </h1>
+
+        <div class="subtitle">
+            A little note from me
+        </div>
+
+        <div id="message"></div>
+
+        <div id="signature" class="signature">
+            — From someone who genuinely values you
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+const message = `Happy Birthday, Saima.
+
+Honestly, I didn't want to make this just another normal "Happy Birthday" message because you deserve something a little more genuine.
+
+We don't talk every single day, and maybe we're not always around each other, but that never really changed the way I see you.
+
+You're someone I genuinely consider my best friend.
+
+And that's something I don't say randomly.
+
+There are people we talk to every day and still don't feel completely comfortable with, and then there are people we may not talk to regularly, but somehow their place in our life stays special.
+
+You're one of those people for me.
+
+I hope this new year of your life brings you peace, happiness, good memories and people who genuinely care about you.
+
+I hope you get closer to everything you've been wishing for.
+
+And whenever life gets stressful or things don't go exactly how you want them to, I hope you remember that there are people who genuinely wish good things for you.
+
+So today, forget everything for a while.
+
+Enjoy your day.
+
+Smile a little more.
+
+Eat something nice.
+
+Make some good memories.
+
+And most importantly, stay the same person who made me think of you as someone genuinely special.
+
+Happy Birthday once again, Saima.
+
+I hope this birthday becomes one of those memories that you look back at someday and smile.
+
+Have a beautiful year ahead.`;
+
+function vibratePhone() {
+    if ("vibrate" in navigator) {
+        navigator.vibrate(150);
+    }
+}
+
+function openWish() {
+
+    vibratePhone();
+
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("letterScreen").classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    startTyping();
+}
+
+function startTyping() {
+
+    const messageBox = document.getElementById("message");
+    const signature = document.getElementById("signature");
+
+    let index = 0;
+
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+
+    messageBox.appendChild(cursor);
+
+    function type() {
+
+        if (index < message.length) {
+
+            cursor.before(
+                document.createTextNode(message.charAt(index))
+            );
+
+            index++;
+
+            let speed = 24;
+
+            if (message.charAt(index - 1) === "\n") {
+                speed = 350;
+            }
+
+            setTimeout(type, speed);
+
+        } else {
+
+            cursor.remove();
+
+            setTimeout(() => {
+                signature.classList.add("show");
+            }, 500);
+        }
+    }
+
+    type();
+}
+
+</script>
+
+</body>
 </html>
+```
